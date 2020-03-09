@@ -1,5 +1,11 @@
 package com.epam.izh.rd.online.service;
 
+import java.util.Arrays;
+import java.util.Collections;
+
+import static java.lang.Math.sqrt;
+
+
 public class SimpleMathService implements MathService {
 
     /**
@@ -13,7 +19,14 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int compare(int value1, int value2) {
-        return -2;
+        if (value1 == value2) {
+            return 0;
+        } else if (value1 < value2) {
+            return -1;
+        } else {
+            return 1;
+        }
+
     }
 
     /**
@@ -22,7 +35,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return -1;
+        if (value1 >= value2) {
+            return value1;
+        } else {
+            return value2;
+        }
+
     }
 
     /**
@@ -31,7 +49,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int[] values) {
-        return -1;
+        int max = values[0];
+        for (int i = 1; i < values.length; i++) {
+            max = Math.max(max, values[i]);
+        }
+        return max;
+
     }
 
     /**
@@ -40,7 +63,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int sum(int[] values) {
-        return -1;
+        int summ = 0;
+        for (int i = 0; i < values.length; i++) {
+            summ = summ + values[i];
+        }
+        return summ;
+
     }
 
     /**
@@ -49,7 +77,23 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] getEvenDigits(int[] values) {
-        return new int[]{};
+        int count = 0;
+        int[] evens;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                count = count + 1;
+            }
+        }
+        evens = new int[count];
+        int j = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                evens[j] = values[i];
+                j++;
+            }
+        }
+        return evens;
+
     }
 
     /**
@@ -59,7 +103,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+        long fac = 1;
+        for (int i = 1; i <= initialVal; i++) {
+            fac = fac * i;
+        }
+        return fac;
+
     }
 
     /**
@@ -74,7 +123,20 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+        long fib = 0;
+        long f1 = 0;
+        long f2 = 1;
+        if (number == 1) {
+            fib = 1;
+        } else {
+            for (int i = 2; i <= number; i++) {
+                fib = f1 + f2;
+                f1 = f2;
+                f2 = fib;
+            }
+        }
+        return fib;
+
     }
 
     /**
@@ -83,7 +145,9 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+        Arrays.sort(values);
+        return values;
+
     }
 
     /**
@@ -94,7 +158,16 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+        if (number<2) {
+            return false;
+        }
+        double snum = sqrt(number);
+        for (int i=2; i<=snum; i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -104,6 +177,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] reverseArray(int[] values) {
-        return new int[]{};
+        int[] revarr = new int[values.length];
+        int j = 0;
+        for (int i=values.length-1; i>=0; i--) {
+            revarr[j] = values[i];
+            j++;
+        }
+        return revarr;
+        //return new int[]{};
     }
 }
